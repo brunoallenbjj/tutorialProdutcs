@@ -24,7 +24,7 @@ jobs:
     - name: Disable package-lock.json
       run: npm config set package-lock false
     - name: Upload Artifact
-      uses: actions/upload-artifact@main	
+      uses: actions/upload-artifact@master
       with:	
         name: mta
         path: ./mta_archives/tutorial02.products_1.0.0.mtar
@@ -34,12 +34,12 @@ jobs:
      runs-on: ubuntu-latest
      steps:
        - name: Download Artifact
-         uses: actions/download-artifact@main
+         uses: actions/download-artifact@master
          with:
            name: mta
            path: ./
        - name: Deploy to Cloud Foundry
-         uses: guerric-p/cf-cli-action@main
+         uses: guerric-p/cf-cli-action@master
          with:
            cf_api: ${{ secrets.CF_API }}
            cf_username: ${{ secrets.CF_USERNAME }}
