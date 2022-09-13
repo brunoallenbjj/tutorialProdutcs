@@ -1,6 +1,6 @@
 # products
 
-Insert the purpose of this project and some interesting infos here
+Insert the purpose of this project and some interesting infos here.
 
 ## Credits
 
