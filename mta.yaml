@@ -1,18 +1,17 @@
----
 _schema-version: '3.1'
-ID: products
-version: 0.0.1
-description: "products"
+ID: external-service
+version: 1.0.0
+description: products
 parameters:
   enable-parallel-deployments: true
 build-parameters:
   before-all:
     - builder: custom
       commands:
+        - npm ci
         - npx -p @sap/cds-dk cds build --production
-
 modules:
-  - name: products-srv
+  - name: external-service-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -20,23 +19,23 @@ modules:
     build-parameters:
       builder: npm-ci
     provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+      - name: srv-api
         properties:
-          srv-url: ${default-url}
-          requires:
+          srv-url: '${default-url}'
+    requires:
       - name: external-service-dest
       - name: external-service-uaa
-     resources:
-       - name: external-service-dest
-         type: org.cloudfoundry.managed-service
-         parameters:
-         service: destination
-         service-name: external-service-dest
+resources:
+  - name: external-service-dest
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-name: external-service-dest
       service-plan: lite
-       - name: external-service-uaa
-         type: org.cloudfoundry.managed-service
-         parameters:
-           path: ./xs-security.json
-           service: xsuaa
-           service-plan: application
-           service-name: external-service-uaa
+  - name: external-service-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+      service-name: external-service-uaa
