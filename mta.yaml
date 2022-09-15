@@ -1,17 +1,18 @@
+---
 _schema-version: '3.1'
-ID: external-service
-version: 1.0.0
-description: products
+ID: products
+version: 0.0.1
+description: "products"
 parameters:
   enable-parallel-deployments: true
 build-parameters:
   before-all:
     - builder: custom
       commands:
-        - npm ci
         - npx -p @sap/cds-dk cds build --production
+
 modules:
-  - name: external-service-srv
+  - name: products-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -19,12 +20,12 @@ modules:
     build-parameters:
       builder: npm-ci
     provides:
-      - name: srv-api
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
-          srv-url: '${default-url}'
-    requires:
-      - name: external-service-dest
-      - name: external-service-uaa
+          srv-url: ${default-url}
+          requires:
+      - name: products-service-dest
+      - name: products-service-uaa
 resources:
   - name: external-service-dest
     type: org.cloudfoundry.managed-service
