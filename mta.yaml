@@ -1,6 +1,6 @@
 ---
 _schema-version: '3.1'
-ID: products
+ID: products-service
 version: 0.0.1
 description: "products"
 parameters:
@@ -27,13 +27,13 @@ modules:
       - name: products-service-dest
       - name: products-service-uaa
 resources:
-  - name: external-service-dest
+  - name: pruducts-service-dest
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
-      service-name: external-service-dest
+      service-name: products-service-dest
       service-plan: lite
-  - name: external-service-uaa
+  - name: products-service-uaa
     type: org.cloudfoundry.managed-service
     parameters:
       path: ./xs-security.json
