@@ -21,5 +21,9 @@ modules:
       builder: npm-ci
     provides:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
-        properties:
-          srv-url: ${default-url}
+       name: ipd-xray
+       properties:
+       url:
+       name: ipd-xray-data
+       properties:
+       url:
