@@ -1,6 +1,6 @@
 ---
 _schema-version: '3.1'
-ID: products-service
+ID: products
 version: 0.0.1
 description: "products"
 parameters:
@@ -14,7 +14,7 @@ build-parameters:
 modules:
   - name: products-srv
     type: nodejs
-    path: gen/srv
+    path: 
     parameters:
       buildpack: nodejs_buildpack
     build-parameters:
@@ -23,20 +23,20 @@ modules:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
-          requires:
-      - name: products-service-dest
-      - name: products-service-uaa
+requires:
+      - name: products-dest
+      - name: products-uaa
 resources:
-  - name: pruducts-service-dest
+  - name: products-dest
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
-      service-name: products-service-dest
+      service-name: external-service-dest
       service-plan: lite
-  - name: products-service-uaa
+  - name: products-uaa
     type: org.cloudfoundry.managed-service
     parameters:
       path: ./xs-security.json
       service: xsuaa
       service-plan: application
-      service-name: external-service-uaa
+      service-name: products-uaa
