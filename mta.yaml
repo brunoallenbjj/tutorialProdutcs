@@ -12,9 +12,9 @@ build-parameters:
         - npx -p @sap/cds-dk cds build --production
 
 modules:
-  - name: products-configuration
+  - name: products-srv
     type: nodejs
-    path:
+    path: .
     parameters:
       buildpack: nodejs_buildpack
     build-parameters:
