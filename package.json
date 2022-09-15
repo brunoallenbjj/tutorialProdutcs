@@ -10,9 +10,9 @@
     "karma": "run-s clearCoverage karma-ci",
     "lint": "eslint ./**/webapp/**/*.js && prettier --plugin-search-dir=. --check ./**/webapp/**/*.{js,xml}",
     "lint-fix": "eslint ./**/webapp/**/*.js --fix && prettier --plugin-search-dir=. --write ./**/webapp/**/*.{js,xml} --no-error-on-unmatched-pattern",
-    "build:mta": "build mta",
+    "build:mta": "mbt build -p=cf --mtar=AddressManager.mtar",
     "deploy:cf": "cross-var cf deploy mta_archives/products_$npm_package_version.mtar",
-    "deploy": "run-s build:mta deploy:cf",
+    "deploy": "cf deploy mta_archives/AddressManager.mtar",
     "serve:uimodule": "ui5 serve --config=uimodule/ui5.yaml",
     "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle"
   },
