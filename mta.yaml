@@ -23,7 +23,7 @@ modules:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
-requires:
+          requires:
       - name: products-tuto-dest
       - name: products-tuto-uaa
 resources:
