@@ -1,6 +1,6 @@
 ---
 _schema-version: '3.1'
-ID: products-tuto
+ID: products
 version: 1.2.18
 description: "products"
 parameters:
@@ -23,21 +23,33 @@ modules:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
-          requires:
-      - name: products-dest
+
+           requires:
       - name: products-uaa
+      - name: products-hdi-container
+      - name: products-db
+    parameters:
+      host: ${user}-products-backend
+
+  - name: products-db
+    type: com.sap.xs.hdi
+    path: db/
+    requires:
+      - name: products-hdi-container
+    tasks:
+        - name: task-1
+          command: node deploy.js 
+          env: 
+            env1: value1
 
 resources:
-  - name: products-dest
-    type: org.cloudfoundry.managed-service
+  - name: products-hdi-container
+    type: com.sap.xs.hdi-container
     parameters:
-      service: destination
-      service-name: products-dest
-      service-plan: lite
+      config:
+        schema: ${default-container-name}
+    
   - name: products-uaa
-    type: org.cloudfoundry.managed-service
+    type: com.sap.xs.uaa
     parameters:
-      path: ./xs-security.json
-      service: xsuaa
-      service-plan: application
-      service-name: products-uaa
+      config_path: xs-security.json
