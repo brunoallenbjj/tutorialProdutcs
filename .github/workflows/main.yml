@@ -25,7 +25,9 @@ jobs:
       run: npm config set package-lock false
     - name: Build MTA
       run: npm run build:mta
-    with:
+    - name: Upload Artifact
+      uses: actions/upload-artifact@master
+      with:
         name: mta
         path: ./mta_archives/cap-github-actions_1.0.0.mtar
         
