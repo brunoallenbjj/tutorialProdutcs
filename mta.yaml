@@ -1,7 +1,7 @@
 ---
 _schema-version: '3.1'
 ID: products
-version: 1.2.18
+version: 3.120.0
 description: "products"
 parameters:
   enable-parallel-deployments: true
