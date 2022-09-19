@@ -5,12 +5,13 @@ name: Build MTA & Deploy it to CF
 # events but only for the master branch
 on:
   push:
-    branches: [ main ]
+    branches: 
+    - master
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js
@@ -33,7 +34,7 @@ jobs:
         
   deploy:
      needs: build
-     runs-on: ubuntu-latest
+     runs-on: ubuntu-18.04
      steps:
        - name: Download Artifact
          uses: actions/download-artifact@master
@@ -43,9 +44,9 @@ jobs:
        - name: Deploy to Cloud Foundry
          uses: guerric-p/cf-cli-action@master
          with:
-           cf_api: ${{ secrets.CF_API }}
+           cf_api: https://api.my-cloud-foundry.com
            cf_username: ${{ secrets.CF_USERNAME }}
            cf_password: ${{ secrets.CF_PASSWORD }}
            cf_org: ${{ secrets.CF_ORG }}
            cf_space: ${{ secrets.CF_SPACE }}
-           command: deploy ./cap-github-actions_1.0.0.mtar -f
+           command: push -f manifest-dev.yml
