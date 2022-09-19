@@ -9,7 +9,8 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - npx -p @sap/cds-dk cds build --production
+        - npm install --production
+        - npx -p @sap/cds-dk@4.7.2 cds build --production
 
 modules:
   - name: products-srv
