@@ -1,6 +1,6 @@
 ---
 _schema-version: '3.1'
-ID: products-tuto
+ID: products
 version: 1.2.18
 description: "products"
 parameters:
@@ -13,7 +13,7 @@ build-parameters:
         - npx -p @sap/cds-dk@4.7.2 cds build --production
 
 modules:
-  - name: products-tuto-srv
+  - name: products-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -36,26 +36,26 @@ modules:
     type: com.sap.xs.hdi
     path: db/
     requires:
-      - name: products-tuto-hdi-container
+      - name: products-hdi-container
     tasks:
         - name: task-1
           command: node deploy.js 
           env: 
             env1: value1
 requires:
-      - name: products-tuto-dest
-      - name: products-tuto-uaa
+      - name: products-dest
+      - name: products-uaa
 resources:
-  - name: products-tuto-dest
+  - name: products-dest
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
-      service-name: products-tuto-dest
+      service-name: products-dest
       service-plan: lite
-  - name: products-tuto-uaa
+  - name: products-uaa
     type: org.cloudfoundry.managed-service
     parameters:
       path: ./xs-security.json
       service: xsuaa
       service-plan: application
-      service-name: products-tuto-uaa
+      service-name: products-uaa
