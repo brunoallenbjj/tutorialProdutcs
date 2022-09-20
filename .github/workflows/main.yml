@@ -22,15 +22,7 @@ jobs:
       run: npm install -g mbt
     # Do not generate package-lock.json
     # See https://blogs.sap.com/2020/07/07/escaping-eintegrity-hell/
-    - name: Disable package-lock.json
-      run: npm config set package-lock false
-    - name: Build MTA
-      run: build mbt
-    - name: Upload Artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: mta
-        path: ./mta_archives/cap-github-actions_1.0.0.mtar
+   
         
   deploy:
      needs: build
