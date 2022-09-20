@@ -70,9 +70,14 @@
     "@sap/cds": "^6.1.3",
     "express": "^4.18.1"
   },
-  "build": {
-    "target": "gen",
-    "tasks": [
-    ]
-  }
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    }
+}
 }
