@@ -24,8 +24,8 @@ modules:
         properties:
           srv-url: ${default-url}
           requires:
-      - name: products-dest
-      - name: products-uaa
+      - name: products-tuto-dest
+      - name: products-tuto-uaa
 resources:
   - name: products-dest
     type: org.cloudfoundry.managed-service
