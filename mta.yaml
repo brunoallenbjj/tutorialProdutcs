@@ -9,8 +9,7 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - npm install --production
-        - npx -p @sap/cds-dk@4.7.2 cds build --production
+        - npx -p @sap/cds-dk cds build --production
 
 modules:
   - name: products-srv
@@ -24,38 +23,3 @@ modules:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
-
-           requires:
-      - name: products-uaa
-      - name: products-hdi-container
-      - name: products-db
-    parameters:
-      host: ${user}-products-backend
-
-  - name: products-db
-    type: com.sap.xs.hdi
-    path: db/
-    requires:
-      - name: products-hdi-container
-    tasks:
-        - name: task-1
-          command: node deploy.js 
-          env: 
-            env1: value1
-requires:
-      - name: products-dest
-      - name: products-uaa
-resources:
-  - name: products-dest
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: destination
-      service-name: products-dest
-      service-plan: lite
-  - name: products-uaa
-    type: org.cloudfoundry.managed-service
-    parameters:
-      path: ./xs-security.json
-      service: xsuaa
-      service-plan: application
-      service-name: products-uaa
