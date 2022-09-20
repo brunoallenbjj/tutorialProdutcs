@@ -3,7 +3,7 @@ name: build-mta-hana
 on:
   push:
     branches:
-      - build
+      - main
     paths-ignore:
       - '.github/**'
 
