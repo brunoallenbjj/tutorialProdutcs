@@ -1,8 +1,8 @@
 ---
 _schema-version: '3.1'
-ID: products
+ID: products-tuto
 version: 1.2.18
-description: "products"
+description: "products-tuto"
 parameters:
   enable-parallel-deployments: true
 build-parameters:
@@ -12,7 +12,7 @@ build-parameters:
         - npx -p @sap/cds-dk cds build --production
 
 modules:
-  - name: products-srv
+  - name: products-tuto-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -23,3 +23,20 @@ modules:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
+          requires:
+      - name: products-tuto-dest
+      - name: products-tuto-uaa
+resources:
+  - name: products-tuto-dest
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-name: products-tuto-dest
+      service-plan: lite
+  - name: products-tuto-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+      service-name: products-tuto-uaa
