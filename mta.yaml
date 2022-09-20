@@ -2,7 +2,7 @@
 _schema-version: '3.1'
 ID: products-tuto
 version: 1.2.18
-description: "products"
+description: "products-tuto"
 parameters:
   enable-parallel-deployments: true
 build-parameters:
@@ -12,7 +12,7 @@ build-parameters:
         - npx -p @sap/cds-dk cds build --production
 
 modules:
-  - name: products-srv
+  - name: products-tuto-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -23,20 +23,20 @@ modules:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
-          requires:
-      - name: products-tuto-dest
-      - name: products-tuto-uaa
+    requires:
+      - name: products-tuto-db
+
+  - name: products-tuto-db-deployer
+    type: hdb
+    path:
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: products-tuto-db
+
 resources:
-  - name: products-dest
-    type: org.cloudfoundry.managed-service
+  - name: products-tuto-db
+    type: com.sap.xs.hdi-container
     parameters:
-      service: destination
-      service-name: products-dest
-      service-plan: lite
-  - name: products-uaa
-    type: org.cloudfoundry.managed-service
-    parameters:
-      path: ./xs-security.json
-      service: xsuaa
-      service-plan: application
-      service-name: products-uaa
+      service: hana
+      service-plan: hdi-shared
