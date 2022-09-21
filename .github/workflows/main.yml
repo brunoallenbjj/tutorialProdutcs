@@ -24,10 +24,10 @@ jobs:
     - name: Disable package-lock.json
       run: npm config set package-lock false
     - name: Build MTA
-      run: mbt build -p cf
+      run: yearn build mta
     - name: Upload Artifact
-      uses: actions/upload-artifact@master	
-      with:	
+      uses: actions/upload-artifact@master
+      with:
         name: mta
         path: ./mta_archives/cap-github-actions_1.0.0.mtar
         
